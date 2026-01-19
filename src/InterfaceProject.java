@@ -143,7 +143,7 @@ public class InterfaceProject {
         subTitleLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         subTitleLabel.setForeground(Color.DARK_GRAY);
         subTitleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-
+        
         JPanel featuresPanel = new JPanel(new GridLayout(1, 3, 20, 0));
         featuresPanel.setMaximumSize(new Dimension(800, 150));
         featuresPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -158,13 +158,14 @@ public class InterfaceProject {
         for (String[] feature : features) {
             featuresPanel.add(createFeatureCard(feature[0], feature[1]));
         }
+        
+        
         mainPanel.add(Box.createVerticalStrut(20));
         mainPanel.add(titleLabel);
         mainPanel.add(Box.createVerticalStrut(10));
         mainPanel.add(subTitleLabel);
         mainPanel.add(Box.createVerticalStrut(40));
         mainPanel.add(featuresPanel);
-
         
         panel.add(mainPanel, BorderLayout.CENTER);
         return panel;
@@ -311,7 +312,7 @@ public class InterfaceProject {
             refreshTableData();
         });
         
-        searchPanel.add(new JLabel("Cari NIM atau Nama:"));
+        searchPanel.add(new JLabel("Cari berdasarkan NIM atau Nama:"));
         searchPanel.add(searchField);
         searchPanel.add(searchButton);
         searchPanel.add(refreshButton);
@@ -615,6 +616,7 @@ public class InterfaceProject {
                 mhs.getNim(),
                 mhs.getNama(),
                 mhs.getUmur(),
+                "Hapus"
             });
         }
         
@@ -630,6 +632,7 @@ public class InterfaceProject {
                 mhs.getNim(),
                 mhs.getNama(),
                 mhs.getUmur(),
+                "Hapus"
             });
         }
         
