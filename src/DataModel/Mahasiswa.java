@@ -1,33 +1,53 @@
 package DataModel;
 
-// Data model ini digunakan untuk melakukan akses terhadap data
 public class Mahasiswa {
-    //attribut dari data model
-    private String nim,nama;
+    private String nim;
+    private String nama;
     private int umur;
-    private String aksi;
-    //ini digunakan untuk field table
-    public static String[] kolom={"Nim", "Nama", "Umur","Aksi"};
-
-    //contructor dari data mahasiswa
-    public Mahasiswa(String nim, String nama, int umur){
-        this.nim=nim;
-        this.nama=nama;
-        this.umur=umur;
-        this.aksi="kosong";
+    
+    // Konstanta untuk kolom tabel
+    public static final String[] kolom = {"NIM", "Nama", "Umur", "Aksi"};
+    
+    // Constructor
+    public Mahasiswa() {}
+    
+    public Mahasiswa(String nim, String nama, int umur) {
+        this.nim = nim;
+        this.nama = nama;
+        this.umur = umur;
     }
-    //getter 
-    public String getNama() {
-        return nama;
-    }
+    
+    // Getter dan Setter
     public String getNim() {
         return nim;
     }
+    
+    public void setNim(String nim) {
+        this.nim = nim;
+    }
+    
+    public String getNama() {
+        return nama;
+    }
+    
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
+    
     public int getUmur() {
         return umur;
     }
-    public String getAksi() {
-        return aksi;
+    
+    public void setUmur(int umur) {
+        this.umur = umur;
     }
     
+    @Override
+    public String toString() {
+        return "Mahasiswa{" +
+                "nim='" + nim + '\'' +
+                ", nama='" + nama + '\'' +
+                ", umur=" + umur +
+                '}';
+    }
 }
