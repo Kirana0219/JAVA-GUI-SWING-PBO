@@ -8,8 +8,6 @@ public class App {
                 try {
                     InterfaceProject app = new InterfaceProject();
                     app.InterfaceUtama();
-                    System.out.println("Aplikasi berjalan!");
-                    System.out.println("Data awal: " + new MahasiswaDAO().getTotalMahasiswa() + " mahasiswa");
                 } catch (Exception e) {
                     System.err.println("Error: " + e.getMessage());
                     e.printStackTrace();
