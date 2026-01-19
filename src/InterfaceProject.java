@@ -312,7 +312,31 @@ public class InterfaceProject {
             refreshTableData();
         });
         
-        searchPanel.add(new JLabel("Cari berdasarkan NIM atau Nama:"));
+        searchPanel.add(new JLabel("Cari Mahasiswa:"));
+
+        searchField.setText("Masukkan NIM atau Nama");
+        searchField.setForeground(Color.GRAY);
+        searchField.setFont(new Font("Arial", Font.PLAIN, 14));
+        searchField.setPreferredSize(new Dimension(250, 35));
+
+        searchField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (searchField.getText().equals("Masukkan NIM atau Nama")) {
+                    searchField.setText("");
+                    searchField.setForeground(Color.BLACK);
+                }
+            }
+            
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (searchField.getText().isEmpty()) {
+                    searchField.setText("Masukkan NIM atau Nama");
+                    searchField.setForeground(Color.GRAY);
+                }
+            }
+        });
+
         searchPanel.add(searchField);
         searchPanel.add(searchButton);
         searchPanel.add(refreshButton);
