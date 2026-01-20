@@ -419,7 +419,7 @@ public class InterfaceProject {
         JLabel searchLabel = new JLabel("Cari NIM:");
         searchLabel.setFont(new Font("Arial", Font.BOLD, 16));
 
-        JTextField searchEditField = new JTextField(15);
+        searchEditField = new JTextField(15);
         searchEditField.setFont(new Font("Arial", Font.PLAIN, 16));
         searchEditField.setPreferredSize(new Dimension(250, 35));
         
