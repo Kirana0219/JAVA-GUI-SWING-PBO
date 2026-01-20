@@ -5,8 +5,6 @@ public class Mahasiswa {
     private String nama;
     private int umur;
     
-    // Konstanta untuk kolom tabel
-    public static final String[] kolom = {"NIM", "Nama", "Umur", "Aksi"};
     
     // Constructor
     public Mahasiswa() {}
@@ -41,13 +39,5 @@ public class Mahasiswa {
     public void setUmur(int umur) {
         this.umur = umur;
     }
-    
-    @Override
-    public String toString() {
-        return "Mahasiswa{" +
-                "nim='" + nim + '\'' +
-                ", nama='" + nama + '\'' +
-                ", umur=" + umur +
-                '}';
-    }
+
 }
