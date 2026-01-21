@@ -1,12 +1,12 @@
+import DataModel.Mahasiswa;
+import ManajemenDatabase.MaintainData;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.table.*;
-import java.util.List;
-import java.util.stream.Collectors;
-import DataModel.Mahasiswa;
-import ManajemenDatabase.MaintainData;
 
 public class InterfaceProject {
     private CardLayout cardLayout;
@@ -34,15 +34,22 @@ public class InterfaceProject {
 
         //judul menu pada sidebar
         JLabel headerLabel = new JLabel("MENU");
+        //mengatur font dan ukurannya 
         headerLabel.setFont(new Font("Arial", Font.BOLD, 22));
+        //memberikan warna putih pada teks header
         headerLabel.setForeground(Color.WHITE);
+        //label agar berada ditengah
         headerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        headerLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 30, 0));
+        //memberikan padding bawah pada label agar ada jarak antara label dengan tombol 
+        headerLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
 
         //panel tombol navigasi
         JPanel buttonPanel = new JPanel();
+        //agar button posisi layoutnya kebawah
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+        //memberikan warna latar belakang pada background
         buttonPanel.setBackground(COLOR_PURPLE);
+        //memberikan padding atas dan bawah pada panel tombol 
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
 
         //membuat tombol navigasi
@@ -60,14 +67,18 @@ public class InterfaceProject {
         buttons[3].addActionListener(e -> showEditData());
 
         sidebar.add(headerLabel);
+        //memberikan jarak antara header dengan buttonnya 
         sidebar.add(Box.createVerticalStrut(10));
 
         for (JButton button : buttons) {
             buttonPanel.add(button);
+            //memberikan jarak antar buttonnya
             buttonPanel.add(Box.createVerticalStrut(8));
         }
 
+        //tambhkan panel button
         sidebar.add(buttonPanel);
+        //memberikan ruang kosong pada bawah button sehingga ada jarak antara panel button dengan footer 
         sidebar.add(Box.createVerticalGlue());
 
         //footer
@@ -84,23 +95,31 @@ public class InterfaceProject {
     private JButton createSidebarButton(String text) {
         JButton button = new JButton(text);
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
+        //memberikan ukuran maksimum button
         button.setMaximumSize(new Dimension(180, 45));
         button.setFont(new Font("Arial", Font.PLAIN, 16));
+        //memberikan warna latar belakang tombol
         button.setBackground(COLOR_WHITE);
+        //memberikan warna pada teks
         button.setForeground(COLOR_PURPLE);
+        //memberikan border luar
         button.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(COLOR_WHITE, 1),
+            //memberikan padding agar teks berada di tengah tombol
             BorderFactory.createEmptyBorder(10, 20, 10, 20)
         ));
+        //set kursornya agar ketika mengarah ke button berbentuk tangan
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         button.addMouseListener(new MouseAdapter() {
             @Override
+            //ketika mouse masuk atau berada di button
             public void mouseEntered(MouseEvent e) {
                 button.setBackground(COLOR_LIGHT_PURPLE);
                 button.setForeground(Color.BLACK);
             }
             @Override
+            //ketika mouse diluar dari button
             public void mouseExited(MouseEvent e) {
                 button.setBackground(COLOR_WHITE);
                 button.setForeground(COLOR_PURPLE);
@@ -128,39 +147,53 @@ public class InterfaceProject {
 
     /* ========================= Panel Beranda ========================= */
 
+    //membuat panel branda
     private JPanel createBerandaPanel() {
         JPanel panel = new JPanel(new BorderLayout());
+        //memberikan latar belakang warnanya putih
         panel.setBackground(COLOR_WHITE);
 
+
         JPanel mainPanel = new JPanel();
+        //konten panel utama itu akan kebawah
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         mainPanel.setBackground(COLOR_WHITE);
+        //memberikan padding pada panel sehingga berada ditengah atau berada di posisi yang diinginkan
         mainPanel.setBorder(BorderFactory.createEmptyBorder(150, 50, 50, 50));
 
+        //judul utama tabel
         JLabel titleLabel = new JLabel("SELAMAT DATANG");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 36));
         titleLabel.setForeground(COLOR_PURPLE);
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        //sub judul tabel
         JLabel subTitleLabel = new JLabel("Sistem Manajemen Data Mahasiswa");
         subTitleLabel.setFont(new Font("Arial", Font.PLAIN, 18));
         subTitleLabel.setForeground(Color.DARK_GRAY);
         subTitleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        // Panel fitur dengan GridLayout (1 baris, 3 kolom, jarak horizontal 20px)
         JPanel featuresPanel = new JPanel(new GridLayout(1, 3, 20, 0));
         featuresPanel.setMaximumSize(new Dimension(800, 150));
         featuresPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        //agar latar belakang panel berwarna transparan sehingga warna latar belakang itu keliatan 
         featuresPanel.setOpaque(false);
 
+        //membeerikan detail informasi menngenai fitur didalamnya 
         String[][] features = {
-            {"Input Data", "Tambah data mahasiswa baru"},
+            //fitur[0], fitur [1]
+            {"Input Data", "Tambah data mahasiswa baru"}, 
             {"View Data", "Lihat dan kelola data mahasiswa"},
             {"Edit Data", "Ubah data mahasiswa"}
         };
+
+        //loop untuk membuat card pada setiap fiturnya
         for (String[] feature : features) {
             featuresPanel.add(createFeatureCard(feature[0], feature[1]));
         }
 
+        //memberikan jarak antar konten didalamnya
         mainPanel.add(Box.createVerticalStrut(20));
         mainPanel.add(titleLabel);
         mainPanel.add(Box.createVerticalStrut(10));
@@ -168,112 +201,141 @@ public class InterfaceProject {
         mainPanel.add(Box.createVerticalStrut(40));
         mainPanel.add(featuresPanel);
 
+        //agar mainpanel berada ditengah
         panel.add(mainPanel, BorderLayout.CENTER);
+        //mengembalikan panel branda
         return panel;
     }
 
+    //method membuat fitur card yang berisi judul dan deskripsinya 
     private JPanel createFeatureCard(String title, String desc) {
         JPanel card = new JPanel();
+        //membuat konten card agar judul dan deskripsinya itu kebawah
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
         card.setBackground(COLOR_WHITE);
         card.setBorder(BorderFactory.createCompoundBorder(
+            //set ketebalan dan warna border 
             BorderFactory.createLineBorder(COLOR_LIGHT_PURPLE, 3),
-            BorderFactory.createEmptyBorder(20, 20, 20, 20)
+            //set padding antar konten didalam card 
+            BorderFactory.createEmptyBorder(30, 20, 20, 20)
         ));
 
+        //judul 
         JLabel titleLabel = new JLabel(title);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
         titleLabel.setForeground(COLOR_PURPLE);
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        //deksripsi pada card, dan agar memberikan format teks berada ditengah tabel sehingga teks tidak terpotong akibat panjang melebihi dari ukuran cardnya 
         JLabel descLabel = new JLabel("<html><center>" + desc + "</center></html>");
         descLabel.setFont(new Font("Arial", Font.PLAIN, 14));
         descLabel.setForeground(Color.DARK_GRAY);
         descLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         card.add(titleLabel);
-        card.add(Box.createVerticalStrut(10));
+        //memberikan jarak antara judul dengan deskripsi
+        card.add(Box.createVerticalStrut(15));
         card.add(descLabel);
 
         return card;
     }
 
     /* ========================= Panel Input ========================= */
-
+    
+    //membuat panel untuk tampilan input data mahasiswa
     private JPanel createInputPanel() {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBackground(COLOR_WHITE);
         panel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
 
+        //judul panel dalam bentuk grid 
         JLabel titleLabel = new JLabel("INPUT DATA MAHASISWA");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setForeground(COLOR_PURPLE);
+        //memberikan padding atau jarak bawah antara judul dengan form agar tidak menempel 
         titleLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
 
+        //form dalam panel, agar komponen dalam form itu tersusun rapi menggunakan gridbaglayout
         JPanel formPanel = new JPanel(new GridBagLayout());
         formPanel.setBackground(COLOR_WHITE);
         formPanel.setBorder(BorderFactory.createCompoundBorder(
             new LineBorder(COLOR_LIGHT_PURPLE, 2),
-            BorderFactory.createEmptyBorder(40, 40, 40, 40)
+            BorderFactory.createEmptyBorder(20, 40, 40, 40)
         ));
 
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
-        gbc.anchor = GridBagConstraints.WEST;
+        //mengatur jarak antar komponen
+        gbc.insets = new Insets(20, 10, 10, 10);
+        //posisinya agar rata bawah 
+        gbc.anchor = GridBagConstraints.SOUTH; 
 
+        //label NIM
         JLabel nimLabel = new JLabel("NIM:");
         nimLabel.setFont(new Font("Arial", Font.BOLD, 16));
         nimLabel.setForeground(COLOR_PURPLE);
 
+        //field input NIM
         inputNimField = new JTextField(20);
-        inputNimField.setFont(new Font("Arial", Font.PLAIN, 16));
+        inputNimField.setFont(new Font("Arial", Font.PLAIN, 18));
         inputNimField.setPreferredSize(new Dimension(250, 35));
 
+        //Label Nama 
         JLabel namaLabel = new JLabel("Nama:");
         namaLabel.setFont(new Font("Arial", Font.BOLD, 16));
         namaLabel.setForeground(COLOR_PURPLE);
 
+        //field input Nama 
         inputNamaField = new JTextField(20);
-        inputNamaField.setFont(new Font("Arial", Font.PLAIN, 16));
+        inputNamaField.setFont(new Font("Arial", Font.PLAIN, 18));
         inputNamaField.setPreferredSize(new Dimension(250, 35));
 
+        //Label Umur
         JLabel umurLabel = new JLabel("Umur:");
         umurLabel.setFont(new Font("Arial", Font.BOLD, 16));
         umurLabel.setForeground(COLOR_PURPLE);
 
+        //Field input Umur
         inputUmurField = new JTextField(20);
-        inputUmurField.setFont(new Font("Arial", Font.PLAIN, 16));
+        inputUmurField.setFont(new Font("Arial", Font.PLAIN, 18));
         inputUmurField.setPreferredSize(new Dimension(100, 35));
 
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
+        //panel uuntuk button simpan dan clear agar berada ditengah dan gap antar button 15
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 0));
         buttonPanel.setBackground(COLOR_WHITE);
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
+        //memberikan jarak atau padding atas 
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
 
+        //membuat tombol simpan dan clear, memberikan teks dan warna pada tombol 
         JButton simpanButton = createActionButton("Simpan Data", COLOR_PURPLE);
         JButton clearButton = createActionButton("Bersihkan", Color.GRAY);
 
+        // Event listener: saat tombol Simpan diklik, jalankan method simpanData()
         simpanButton.addActionListener(e -> simpanData());
+        // Event listener: saat tombol Bersihkan diklik, jalankan method clearInputFields()
         clearButton.addActionListener(e -> clearInputFields());
 
+        //tambahkan tombol ke panel tombol 
         buttonPanel.add(simpanButton);
         buttonPanel.add(clearButton);
 
-        gbc.gridx = 0; gbc.gridy = 0;
-        formPanel.add(nimLabel, gbc);
-        gbc.gridx = 1;
-        formPanel.add(inputNimField, gbc);
-        gbc.gridx = 0; gbc.gridy = 1;
-        formPanel.add(namaLabel, gbc);
-        gbc.gridx = 1;
-        formPanel.add(inputNamaField, gbc);
-        gbc.gridx = 0; gbc.gridy = 2;
-        formPanel.add(umurLabel, gbc);
-        gbc.gridx = 1;
-        formPanel.add(inputUmurField, gbc);
-        gbc.gridx = 1; gbc.gridy = 3;
-        gbc.anchor = GridBagConstraints.CENTER;
+        //menambahkan komponen ke form panel berdasarkan posisi grid yang sudah diatur
+        gbc.gridx = 0; gbc.gridy = 0; //kolom 0, baris 0
+        formPanel.add(nimLabel, gbc); //tambahkan label NIM
+        gbc.gridx = 1;  //kolom 1
+        formPanel.add(inputNimField, gbc); //tambahkan field nim
+        gbc.gridx = 0; gbc.gridy = 1; //kolom 0, baris 1
+        formPanel.add(namaLabel, gbc); //tambahkan label nama 
+        gbc.gridx = 1;  //kolom 1
+        formPanel.add(inputNamaField, gbc); //tambahkan field nama 
+        gbc.gridx = 0; gbc.gridy = 2; //kolom 0, baris 2
+        formPanel.add(umurLabel, gbc); //tambahkan label umur
+        gbc.gridx = 1; //kolom 1
+        formPanel.add(inputUmurField, gbc); //tambahkan field umur
+        gbc.gridx = 1; gbc.gridy = 3; //kolom 1, baris 3
+        gbc.anchor = GridBagConstraints.CENTER;  //posisi tombol agar rata tengah
         formPanel.add(buttonPanel, gbc);
 
+        // Menambahkan judul di atas dan form di tengah panel utama
         panel.add(titleLabel, BorderLayout.NORTH);
         panel.add(formPanel, BorderLayout.CENTER);
 
@@ -282,86 +344,121 @@ public class InterfaceProject {
 
     /* ========================= Panel View ========================= */
 
+    //membuat panel view
     private JPanel createViewPanel() {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBackground(COLOR_WHITE);
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
+        //header panel 
         JPanel headerPanel = new JPanel(new BorderLayout());
         headerPanel.setBackground(COLOR_WHITE);
         headerPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
 
+        //judul dalam panel
         JLabel titleLabel = new JLabel("DATA MAHASISWA");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setForeground(COLOR_PURPLE);
 
+        //membuat panel search
         JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
         searchPanel.setBackground(COLOR_WHITE);
         searchPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));
 
+        //membuat teksfield pada panel seach 
         JTextField searchField = new JTextField(20);
         searchField.setFont(new Font("Arial", Font.PLAIN, 14));
         searchField.setPreferredSize(new Dimension(250, 35));
 
+        //membuat button search dan refresh 
         JButton searchButton = createActionButton("Cari", COLOR_PURPLE);
         JButton refreshButton = createActionButton("Refresh", new Color(70, 130, 180));
 
-        searchPanel.add(new JLabel("Cari Mahasiswa:"));
+        //membuat teks label sebelum search panel untuk memberitahukan fungsi search tersebut untuk mencaari data mahasiswa 
+        JLabel label = new JLabel("Cari Mahasiswa: ");
+        label.setFont(new Font("Arial", Font.BOLD, 16));
+        searchPanel.add(label);
 
-        final String PLACEHOLDER = "Masukkan NIM atau Nama";
+        //membuat placeholder didalam searchfieldnya 
+        String PLACEHOLDER = "Masukkan NIM atau Nama";
         searchField.setText(PLACEHOLDER);
         searchField.setForeground(Color.GRAY);
         searchField.addFocusListener(new FocusAdapter() {
             @Override
+            //jika mouse klik pada bagian searchfield 
             public void focusGained(FocusEvent e) {
                 if (searchField.getText().equals(PLACEHOLDER)) {
+                    //maka placeholder akan menghilang
                     searchField.setText("");
+                    //dan ketika user mengetik maka memberikan warna teksnya hitam 
                     searchField.setForeground(Color.BLACK);
                 }
             }
             @Override
+            //jika tidak ada di searchfield
             public void focusLost(FocusEvent e) {
                 if (searchField.getText().isEmpty()) {
+                    //jika dia teksnya tidak ada atau kosong maka munculkan placeholder
                     searchField.setText(PLACEHOLDER);
+                    //set warna teks placeholdernya itu warna abu-abu
                     searchField.setForeground(Color.GRAY);
                 }
             }
         });
 
+        //event listener tombol cari 
         searchButton.addActionListener(e -> {
+            //membuat variable string dengan nama keywoard yang disingkat kw 
             String kw = searchField.getText();
+            //jika keywoardnya noll atau dia kosong dan hanya ada placeholder
             if (kw == null || kw.trim().isEmpty() || PLACEHOLDER.equals(kw)) {
+                //maka tampilkan seluruh data
                 refreshTableData();
             } else {
-                searchData(kw.trim());
+                //jika ada keywoardnya keluarkan dia hasilnya 
+                searchData(kw.trim()); //trim untuk menghapus spasi diawal dan diakhir jadi jika user tidak sengaja ada spasi maka sistem tetap bisa membacanya dan mengeluarkan data yang diinginkan
             }
         });
+        //listener untuk button refresh
         refreshButton.addActionListener(e -> {
+            //set field ke placeholder 
             searchField.setText(PLACEHOLDER);
             searchField.setForeground(Color.GRAY);
+            //muat ulang data tabel
             refreshTableData();
         });
 
+        //tambahkan seluruh panel 
         searchPanel.add(searchField);
         searchPanel.add(searchButton);
         searchPanel.add(refreshButton);
 
+        //memberikan layout agar judul berada diatas dan search berada dibawah 
         headerPanel.add(titleLabel, BorderLayout.NORTH);
         headerPanel.add(searchPanel, BorderLayout.SOUTH);
 
+        //membuat array nama kolom yang akan digunakan pada tabel data mahasiswa 
         String[] columns = {"NIM", "Nama", "Umur", "Aksi"};
+        // Membuat model tabel (DefaultTableModel) dengan kolom di atas dan 0 baris awal
         dmTableModel = new DefaultTableModel(columns, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
+                //cell hanya bisa diedit pada kolom 3, sehingga kolom 1-2 tidak bisa menghindari terjadinya kesalahan pada data 
                 return column == 3; 
             }
         };
 
+        //membuat tabel 
         jTable = new JTable(dmTableModel);
-        jTable.setRowHeight(30);
+        //set tinggi barisnya menjadi 35
+        jTable.setRowHeight(35);
+        //set font dan ukurannya 
         jTable.setFont(new Font("Arial", Font.PLAIN, 14));
-        jTable.getTableHeader().setFont(new Font("Arial", Font.BOLD, 14));
+        //set font dan ukuran pada judul headernya 
+        jTable.getTableHeader().setFont(new Font("Arial", Font.BOLD, 16));
+        //memberikan latar belakang warna pada headernya 
         jTable.getTableHeader().setBackground(COLOR_PURPLE);
+        //memberikan warna teks pada headernya 
         jTable.getTableHeader().setForeground(Color.WHITE);
         jTable.setDefaultRenderer(Object.class, new CustomTableCellRenderer());
 
@@ -371,20 +468,8 @@ public class InterfaceProject {
         JScrollPane scrollPane = new JScrollPane(jTable);
         scrollPane.setBorder(BorderFactory.createLineBorder(COLOR_LIGHT_PURPLE, 1));
 
-        JPanel footerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        footerPanel.setBackground(COLOR_LIGHT_PURPLE);
-        footerPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
-
-        JLabel totalLabel = new JLabel();
-        totalLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        totalLabel.setForeground(COLOR_PURPLE);
-        footerPanel.add(totalLabel);
-
         panel.add(headerPanel, BorderLayout.NORTH);
         panel.add(scrollPane, BorderLayout.CENTER);
-        panel.add(footerPanel, BorderLayout.SOUTH);
-
-        updateTotalLabel(totalLabel);
 
         return panel;
     }
@@ -591,10 +676,6 @@ public class InterfaceProject {
     private void cariDataUntukEdit() {
         String nim = searchEditField.getText().trim();
 
-        if (nim.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Masukkan NIM yang akan dicari!");
-            return;
-        }
 
         //Cari Data Mahasiswa
         List<Mahasiswa> hasil = MaintainData.getData("filter", nim);
@@ -610,6 +691,7 @@ public class InterfaceProject {
         }
     }
 
+    
     private void updateData() {
         String nim = editNimField.getText().trim();
         String nama = editNamaField.getText().trim();
@@ -647,7 +729,7 @@ public class InterfaceProject {
 
     private void refreshTableData() {
         dmTableModel.setRowCount(0);
-        List<Mahasiswa> list = MaintainData.getData("all", null); // ambil semua
+        List<Mahasiswa> list = MaintainData.getData("all", null);
 
         for (Mahasiswa mhs : list) {
             dmTableModel.addRow(new Object[]{
@@ -657,15 +739,11 @@ public class InterfaceProject {
                 "Hapus"
             });
         }
-
-        updateTotalLabel();
     }
 
     private void searchData(String keyword) {
         dmTableModel.setRowCount(0);
 
-        // MaintainData.getData("filter", key) hanya exact NIM
-        // Jadi: ambil semua, lalu filter di Java untuk NIM/Nama contains (case-insensitive)
         List<Mahasiswa> all = MaintainData.getData("all", null);
         String kw = keyword.toLowerCase();
 
@@ -681,46 +759,6 @@ public class InterfaceProject {
                 mhs.getUmur(),
                 "Hapus"
             });
-        }
-
-        updateTotalLabel();
-    }
-
-    private void updateTotalLabel() {
-        if (panelCenter != null) {
-            Component[] comps = panelCenter.getComponents();
-            for (Component comp : comps) {
-                if (comp instanceof JPanel) {
-                    JPanel panel = (JPanel) comp;
-                    if (panel.getLayout() instanceof BorderLayout) {
-                        Component southComp = ((BorderLayout) panel.getLayout())
-                                .getLayoutComponent(BorderLayout.SOUTH);
-                        if (southComp instanceof JPanel) {
-                            JPanel footer = (JPanel) southComp;
-                            for (Component footerComp : footer.getComponents()) {
-                                if (footerComp instanceof JLabel) {
-                                    int total = safeTotalCount();
-                                    ((JLabel) footerComp).setText("Jumlah Mahasiswa: " + total);
-                                    return;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private void updateTotalLabel(JLabel label) {
-        label.setText("Jumlah Mahasiswa: " + safeTotalCount());
-    }
-
-    private int safeTotalCount() {
-        try {
-            List<Mahasiswa> all = MaintainData.getData("all", null);
-            return all != null ? all.size() : 0;
-        } catch (Exception ex) {
-            return 0;
         }
     }
 
